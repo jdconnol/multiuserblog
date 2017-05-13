@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+
+{% block content %}
+  <h2>Edit an Existing Comment</h2>
+
+    <form method="post">
+      <label>
+        <div>comment content</div>
+        <textarea name="content">{{post.content}}</textarea>
+      </label>
+<!-- this is the post ID - used to add the changed post back to the DB, but hidden from user -->
+      <input type="hidden" name="comment_id" value="{{post.key().id()}}">
+
+      <div class="error">{{error}}</div>
+
+      <input type="submit"> or <a href="/blog">Cancel</a>
+    </form>
+{% endblock %}

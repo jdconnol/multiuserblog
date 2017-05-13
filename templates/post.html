@@ -1,0 +1,48 @@
+<div class="post">
+  <div class="post-heading">
+    <div class="post-title">
+      <label> subject: {{p.subject}} </label>
+    </div>
+
+
+      <div class="post-creator">
+      <!-- check to see if curr user = creator of post  -->
+        {% if self %}
+          {% if user.key().id() == p.creator %}
+<!--           <label> you are the creator! you may edit. BUT NOT LIKE.</label> -->
+          <label> Like count = {{p.likes|length}}</label> 
+          <a href="/blog/editpost/{{p.key().id()}}/">Edit</a> 
+          <a href="/blog/deletepost/{{p.key().id()}}/">Delete</a> 
+          <a href="/blog/{{p.key().id()}}">View Comments</a> 
+<!-- If user has already liked post, allow them to unlike the post-->
+          {% elif user.key().id() in p.likes %}
+<!--           <label> you have already liked this</label> -->
+          <label> Like count = {{p.likes|length}}</label> 
+          <a href="/blog/unlike/{{p.key().id()}}/">Unlike</a>
+          <a href="/blog/{{p.key().id()}}">View Comments</a> 
+
+
+<!-- If user not creator, and has not liked post, call like handler -->
+          {% else %}
+<!--           <label> Like count = {{p.likes|length}}</label>  -->
+          <label> Like count = {{p.likes|length}} </label> 
+          <a href="/blog/like/{{p.key().id()}}/">Like</a> 
+          <a href="/blog/{{p.key().id()}}">View Comments</a> 
+          {% endif %}
+        {% else %}
+          <label>creator: {{p.creator}} you are not a user</label> 
+        {% endif %}
+
+
+
+    </div>
+
+    <div class="post-date">
+      {{p.created.strftime("%b %d, %Y")}}
+    </div>
+  </div>
+
+  <div class="post-content">
+    {{p._render_text | safe}}
+  </div>
+</div>

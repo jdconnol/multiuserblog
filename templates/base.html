@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <link type="text/css" rel="stylesheet" href="/static/main.css" />
+
+  <title> Andromeda Blog</title>
+</head>
+
+<body>
+  <a href="/blog" class="main-title">
+    Andromeda Blog
+  </a>
+
+  <div class="login-area">
+    {% if user %}
+      <a class="blog-newpost" href="/blog/newpost">new post</a>
+      {{user.name}} (<a class="login-link" href="/logout">logout</a>)
+    {% else %}
+    <a class="login-link" href="/login">signin</a>
+    |
+    <a class="login-link" href="/signup">signup</a>
+    {% endif %}
+  </div>
+  <div class="blog-functions">
+    <a class="blog-newpost" href="/blog/newpost">new blog post</a>
+  </div>
+
+
+  <div id="content">
+    {% block content %}
+    {% endblock %}
+  </div>
+</body>
+
+</html>
+

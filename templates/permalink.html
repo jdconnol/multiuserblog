@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+    <style type="text/css">
+      .label {text-align: right}
+      .error {color: red}
+    </style>
+
+{% block content %}
+{{post.render(user) | safe}}
+
+<!-- checks if user, and allows them to add comments -->
+
+{% if user %}
+<!-- hides the comment box IF the user is NOT the author -->
+
+	{% if user.key().id() == post.creator %}
+
+		<form method="post">
+			<label> Add a new comment!</label>
+			<textarea name="comment_content"
+			style="height: 100px; width: 400px;">{{content}}</textarea>
+			<br>
+			<div class="error">{{error}}</div>
+			<input type="hidden" name="post_id" value="{{post.key().id()}}">
+			<input type="submit">
+		</form>
+	{% endif %}
+
+
+
+<label> <b> Comments: </b> </label>
+<br>
+<br>
+	  {% for comment in comments %}
+	    {{ comment.render(user) | safe }}
+	     <br><br>
+	  {% endfor %}
+	  {% endif %}
+  {% endblock %}

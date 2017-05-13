@@ -1,0 +1,30 @@
+<div class="comment-creator">
+  <!-- check to see if curr user = creator of comment  -->
+  {% if self %}
+      {% if user.key().id() == p.creator %}
+      <div class="comment-author">
+        <label> <b> Commentator{{p.creator}} says:</b> </label>
+    </div>
+    <!--           <label> Like count = {{p.likes|length}}</label>  -->
+    <a href="/blog/editcomment/{{p.key().id()}}/">Edit</a>
+    <a href="/blog/deletecomment/{{p.key().id()}}/">Delete</a> 
+    <hr>
+    {% else %}
+        <div class="comment-author">
+        <label> <b> Commentator{{p.creator}} says: </b> </label>
+    </div>
+    {% endif %}
+{% else %}
+    <label>creator: {{p.creator}} you are not a user</label> 
+{% endif %}
+</div>
+
+<div class="post-date">
+  {{p.created.strftime("%b %d, %Y")}}
+</div>
+
+
+<div class="post-content">
+    {{p._render_text | safe}}
+</div>
+<hr>
